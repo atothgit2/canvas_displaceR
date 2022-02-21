@@ -2,12 +2,35 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Helvetica', cursive;
+  background-color: rgb(82, 82, 82);
 }
 
-#canvas1 {
-  background-color: gray;
-  border: solid 3px rgb(65, 65, 65);
-  position: absolute;
+body {
+  overflow: hidden;
+}
+
+/* #canvas1 {
+  background-color: rgb(78, 120, 155); */
+  /* border: solid 3px rgb(65, 65, 65); */
+  /* position: absolute;
   width: 100%;
   height: 100%;
+} */
+
+#canvas1 {
+  position: absolute;
+  background: rgb(99, 129, 173);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#loading {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  font-size: 80px;
 }
