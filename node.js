@@ -1,3 +1,5 @@
+import Mouse from "./mouse.js";
+
 export default class Node {
   constructor(canvasWitdth, canvasHeight) {
     this.baseX = canvasWitdth * 0.5;
@@ -7,20 +9,13 @@ export default class Node {
     this.radius = 5;
     this.lineWidth = 3;
     this.stroke = '#23276b';
-    this.distance = undefined;
+    this.distance = undefined; // in pixles
+    this.isDown = false;
   }
 
-  update(mX, mY) {
-    window.addEventListener('mousedown', (e) => {
-      this.x = mX;
-      this.y = mY;
-    });
-    window.addEventListener('mouseup', (e) => {
-      this.x = this.baseX;
-      this.y = this.baseY;
-      
-      // this.distance = Math.sqrt(Math.abs(this.x - mouse.x) + Math.abs(this.y - mouse.y));
-    });
+  update(mouse) {
+    this.distance = Math.hypot(this.x, this.y);
+    this.isMouseDown();
   }
 
   draw(ctx) {
@@ -31,4 +26,15 @@ export default class Node {
     ctx.stroke();
   }
 
+  isMouseDown() {
+    document.addEventListener("mousedown", (e) => {
+      // console.log("true");
+      return this.isDown = true;
+    });
+    document.addEventListener("mouseup", (e) => {
+      // console.log("false");
+      return this.isDown = false;
+    });
+    
+  }
 }

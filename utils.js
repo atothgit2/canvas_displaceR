@@ -1,11 +1,9 @@
 export function drawData(context, ...items) {
-  // new array = items;
-  context.font = '12px Helvetica';
-  let posY = 15;
+  context.font = '11px Helvetica';
+  let posY = 10;
   for (let item of items) {
-    context.fillText(`${Object.keys(item)}: ${Object.values(item)} `, 14, posY);
+    context.fillText(`${Object.keys(item)}: ${Object.values(item)} `, 3, posY);
     posY += 15;
-    // console.log(posY);
   }
 }
 
