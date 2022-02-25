@@ -13,9 +13,7 @@ window.addEventListener('load', function(){
   canvas.height = 500;
   
   const mouse = new Mouse();
-  console.log(mouse);
   mouse.getMouseData(canvas);
-  console.log(mouse);
   
   const node = new Node(canvas.width, canvas.height);
   
@@ -31,11 +29,14 @@ window.addEventListener('load', function(){
       {"this.baseY": node.baseY},
       {"isDown": node.isDown},
       {"this.x": node.x},
-      {"this.y": node.y}, 
+      {"this.y": node.y},
+      // {"this.calX": node.calX}, 
+      // {"this.calY": node.calY}, 
+      {"this.radiusCircle": node.radiusCircle},
       {"mX": mouse.x},
-      {"mX": mouse.y},
-      {"mAlpha": mouse.alpha},
-      {"mDistance": mouse.distance}
+      {"mY": mouse.y},
+      {"this.alpha": node.alpha},
+      // {"mDistance": mouse.distance}
 
     );
       requestAnimationFrame(animate);

@@ -9,7 +9,7 @@ export default class Mouse {
     canvas.addEventListener('mousemove', e => {
       this.x = e.clientX;
       this.y = e.clientY;
-      this.alpha = Math.atan(this.y/this.x) * 180 / Math.PI;
+      this.alpha = Math.atan(this.y/this.x); //* 180 / Math.PI;
       this.distance = Math.hypot(this.x, this.y); // a háromszög átmérője
     });
   }
