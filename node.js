@@ -1,39 +1,56 @@
-import Mouse from "./mouse.js";
+import * as utils from "./utils.js";
+import { ctx } from "./script.js";
 
 export default class Node {
-  constructor(canvasWitdth, canvasHeight) {
-    this.baseX = canvasWitdth * 0.5;
-    this.baseY = canvasHeight * 0.5;
-    this.x = this.baseX;
-    this.y = this.baseY;
+  constructor() {
+    this.baseX = undefined;
+    this.baseY = undefined;
+    this.x = undefined;
+    this.y = undefined;
     this.radiusDraw = 5;
     this.lineWidth = 3;
-    this.stroke = '#23276b';
+    this.stroke = '#ececec';
     
-    this.distance = undefined; // in pixles
     this.isDown = false;
-    
-    // this.alpha = undefined;
-    // this.radiusCircle = undefined;
+    this.mouseX = undefined;
+    this.mouseY = undefined;
+    this.mouseDistance = undefined;
   }
 
-  update(mouse) {
-    this.distance = Math.hypot(this.x, this.y);
-    
+  update(canvas1) {
+
+    canvas1.addEventListener('mousemove', e => {
+      this.mouseDistance = Math.round(Math.sqrt(Math.pow(this.x - this.mouseX, 2) + Math.pow(this.y - this.mouseY, 2))); 
+      this.mouseX = e.clientX;
+      this.mouseY = e.clientY;
+    });
     this.isMouseDown();
-    // this.radiusCircle = this.getRadiusCircle(this.baseX, this.baseY, mouse.x, mouse.y);
-    // this.alpha = this.getAlpha(this.baseX, this.baseY, mouse.x, mouse.y)
-    if (this.isDown) {
-      let ratio = -0.08;
-      this.x = this.baseX + 2 * (this.baseX - mouse.x) * ratio;
-      this.y = this.baseY + 2 * (this.baseY - mouse.y) * ratio;
+    if (this.isDown && this.mouseDistance < 100) {
+      // let ratio = -0.11;
+      let ratio = -this.mouseDistance / 1000;
+      this.x = Math.round(this.baseX + 2 * (this.baseX - this.mouseX) * ratio);
+      this.y = Math.round(this.baseY + 2 * (this.baseY - this.mouseY) * ratio);
     } else {
-      this.x = this.baseX;
-      this.y = this.baseY;
+      this.x = Math.round(this.baseX);
+      this.y = Math.round(this.baseY);
+      // console.log(this);
     }
+
+    // utils.drawData(ctx,
+    //   {"this.baseX": this.baseX},
+    //   {"this.baseY": this.baseY},
+    //   {"this.x": this.x},
+    //   {"this.y": this.y},
+    //   {"isDown": this.isDown},
+    //   {"mX": this.mouseX},
+    //   {"mY": this.mouseY},
+    //   {"this.mouseDistance": this.mouseDistance},
+    // );
   }
 
   draw(ctx) {
+       // ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     ctx.strokeStyle = this.stroke;
     ctx.lineWidth = this.lineWidth;
     ctx.beginPath();
@@ -43,11 +60,9 @@ export default class Node {
 
   isMouseDown() {
     document.addEventListener("mousedown", (e) => {
-      // console.log("true");
       return this.isDown = true;
     });
     document.addEventListener("mouseup", (e) => {
-      // console.log("false");
       return this.isDown = false;
     });
   }
@@ -57,4 +72,5 @@ export default class Node {
 
     return radius;
   }
+
 }
