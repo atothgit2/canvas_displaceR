@@ -17,14 +17,14 @@ export default class Node {
     this.mouseDistance = undefined;
   }
 
-  update(canvas1) {
+  update(mouseX, mouseY, isDown) {
 
-    canvas1.addEventListener('mousemove', e => {
-      this.mouseDistance = Math.round(Math.sqrt(Math.pow(this.x - this.mouseX, 2) + Math.pow(this.y - this.mouseY, 2))); 
-      this.mouseX = e.clientX;
-      this.mouseY = e.clientY;
-    });
-    this.isMouseDown();
+    this.isDown = isDown;
+    this.mouseX = mouseX;
+    this.mouseY = mouseY;
+    this.mouseDistance = Math.round(Math.sqrt(Math.pow(this.x - this.mouseX, 2) + Math.pow(this.y - this.mouseY, 2)));
+
+
     if (this.isDown && this.mouseDistance < 100) {
       // let ratio = -0.11;
       let ratio = -this.mouseDistance / 1000;
@@ -58,14 +58,6 @@ export default class Node {
     ctx.stroke();
   }
 
-  isMouseDown() {
-    document.addEventListener("mousedown", (e) => {
-      return this.isDown = true;
-    });
-    document.addEventListener("mouseup", (e) => {
-      return this.isDown = false;
-    });
-  }
 
   getRadiusCircle(tX, tY, mX, mY) {
     let radius = Math.sqrt(Math.pow((tX - mX),2) + Math.pow((tY - mY),2));
