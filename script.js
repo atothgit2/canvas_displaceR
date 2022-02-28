@@ -16,6 +16,23 @@ let frameCount = 0;
 window.addEventListener('load', function(){
   const loading = document.getElementById('loading');
   loading.style.display = 'none';
+
+  let mouseX;
+  let mouseY;
+  let mouseDown;
+
+  canvas1.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  document.addEventListener("mousedown", (e) => {
+    mouseDown = true;
+  });
+  document.addEventListener("mouseup", (e) => {
+    mouseDown = false;
+  });
+
   
   canvas1.width = 500;
   canvas1.height = 500;
@@ -30,7 +47,7 @@ window.addEventListener('load', function(){
     // ctxData.clearRect(0 , 0, 150, 150);
 
     for (let n of nodesArray) {
-      n.update(canvas1);
+      n.update(mouseX, mouseY, mouseDown);
       n.draw(ctx);
     }
     requestAnimationFrame(animate);
