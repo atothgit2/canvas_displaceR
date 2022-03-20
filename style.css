@@ -12,11 +12,13 @@ body {
 
 #canvas1 {
   position: absolute;
-  background: rgb(172, 172, 172);
+  background: rgb(0, 0, 0);
   top: 0;
   left: 0;
-  width: 500 px;
-  height: 500 px;
+  /* width: 100%;
+  height: 100%; */
+  width: 600;
+  height:600;
 }
 
 #loading {

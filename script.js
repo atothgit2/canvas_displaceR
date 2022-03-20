@@ -5,21 +5,16 @@ const canvas1 = document.getElementById('canvas1');
 const ctx = canvas1.getContext('2d');
 export { canvas1 };
 export { ctx };
-
-// const canvasData = document.getElementById('canvasData');
-// const ctxData = canvasData.getContext('2d');
-// export { canvasData };
-// export { ctxData };
-
-let frameCount = 0;
+const divider = 2;
+export { divider };
 
 window.addEventListener('load', function(){
   const loading = document.getElementById('loading');
   loading.style.display = 'none';
-
-  let mouseX;
-  let mouseY;
-  let mouseDown;
+  
+  let mouseX = 0;
+  let mouseY = 0;
+  let mouseDown = false;
 
   canvas1.addEventListener('mousemove', e => {
     mouseX = e.clientX;
@@ -33,25 +28,22 @@ window.addEventListener('load', function(){
     mouseDown = false;
   });
 
+  // canvas1.width = this.window.innerWidth;
+  // canvas1.height = this.window.innerHeight;
+  canvas1.width = 600;
+  canvas1.height = 600;
   
-  canvas1.width = 500;
-  canvas1.height = 500;
-  // canvasData.width = 150;
-  // canvasData.height = 150;
-
   let nodesArray = new Array();
-  nodesArray = getNodeArray(canvas1.width, canvas1.height, 10);
+  nodesArray = getNodeArray(canvas1.width, canvas1.height, divider);
   
   function animate() {
     ctx.clearRect(0, 0, canvas1.width, canvas1.height);
-    // ctxData.clearRect(0 , 0, 150, 150);
 
     for (let n of nodesArray) {
       n.update(mouseX, mouseY, mouseDown);
       n.draw(ctx);
     }
     requestAnimationFrame(animate);
-    frameCount++;
   }
 
   function getNodeArray(canvasWidth, canvasHeight, divideBy) {
@@ -63,7 +55,7 @@ window.addEventListener('load', function(){
         node.x = i;
         node.baseX = i;
         // console.log("i: " + i);
-        for (let j = 200; j <= canvasWidth - 200; j++) {
+        for (let j = 1; j <= canvasWidth - 1; j++) {
           if (j % (canvasWidth / divideBy) == 0) {
             node.y = j;
             node.baseY = j;
@@ -79,9 +71,8 @@ window.addEventListener('load', function(){
     // console.log(nodes);
     return nodes;
   }
-  if (frameCount % 20 == 0) {
+
     animate();
-  }
 });
 
 
